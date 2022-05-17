@@ -43,5 +43,16 @@ public class Course {
     @JsonIgnoreProperties("course")
     private List<Section> sections = new ArrayList<>();
 
+    public Course addSection(Section section){
+        section.setCourse(this);
+        this.getSections().add(section);
+        return this;
+    }
+
+    public Course deleteSection(Section section)throws Exception{
+        section.setCourse(null);
+        this.getSections().remove(section);
+        return this;
+    }
 
 }

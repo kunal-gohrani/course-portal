@@ -19,7 +19,7 @@ public class Section {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name="course_id",referencedColumnName = "id")
     @JsonIgnoreProperties("sections")
     private Course course;

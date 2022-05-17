@@ -4,7 +4,7 @@ public class CourseNotPresentException extends RuntimeException{
     private String msg;
     public CourseNotPresentException(){}
 
-    public CourseNotPresentException(String msg,Long id){
+    public CourseNotPresentException(String msg){
         super(msg);
         this.msg = msg;
     }

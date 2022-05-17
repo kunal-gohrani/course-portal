@@ -34,7 +34,7 @@ public class CourseServiceImpl implements CourseService {
         log.info("----In CourseServiceImpl.getCourseById----");
         Course course = courseRepository.findById(id).orElse(null);
         if(course==null){
-            throw new CourseNotPresentException("Course doesn't exists!",id);
+            throw new CourseNotPresentException("Course doesn't exists!");
         }
         log.info("----Out of CourseServiceImpl.getCourseById----");
         return course;

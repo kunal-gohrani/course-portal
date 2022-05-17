@@ -25,7 +25,7 @@ public class Author {
     private String firstName;
     private String lastName;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author",cascade = CascadeType.ALL)
     @JsonIgnoreProperties("author")
     private List<Course> courses = new ArrayList<>();
 }

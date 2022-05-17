@@ -7,7 +7,7 @@ import java.util.List;
 public interface SectionService {
 
     List<Section> getAllSectionsByCourseId(Long courseId);
-    Section saveOrUpdateSectionInCourse(Long courseId,Section section);
-    Long deleteSectionFromCourse(Long courseId,Long sectionId);
-    Section getSectionByName(Long courseId,String name);
+    Long saveOrUpdateSectionInCourse(Section section);
+    Long deleteSectionFromCourse(Section section);
+    List<Section> getSectionByName(Long courseId,String name);
 }

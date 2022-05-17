@@ -57,8 +57,6 @@ public class CourseServiceImpl implements CourseService {
     public Long saveCourse(Course course) {
         log.info("----In CourseServiceImpl.saveCourse----");
 
-        boolean containsSections = false;
-        List<Section> sections = null;
 
         Optional<Course> coursedb =
                 courseRepository.findByNameAndAuthor(course.getName(),

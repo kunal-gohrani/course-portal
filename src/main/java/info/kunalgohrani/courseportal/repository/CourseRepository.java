@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CourseRepository extends JpaRepository<Course,Long> {
+public interface CourseRepository extends JpaRepository<Course, Long> {
     List<Course> findByName(String name);
+
     Optional<Course> findByNameAndAuthor(String name, Author author);
 }

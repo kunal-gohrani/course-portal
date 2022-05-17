@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface AuthorService {
     Author getAuthorById(Long id);
+
     List<Author> getAllAuthors();
+
     Long saveAuthor(Author author);
 
     Long updateAuthor(Author author);

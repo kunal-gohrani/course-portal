@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class AuthorServiceImpl implements AuthorService{
+public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
 
@@ -24,7 +24,7 @@ public class AuthorServiceImpl implements AuthorService{
     public Author getAuthorById(Long id) {
         log.info("----In AuthorServiceImpl.getAuthorById----");
         Author author = authorRepository.findById(id).orElse(null);
-        if(author==null){
+        if (author == null) {
             throw new AuthorNotFoundException("Author not found");
         }
         log.info("----Out of AuthorServiceImpl.getAuthorById----");
@@ -42,9 +42,9 @@ public class AuthorServiceImpl implements AuthorService{
     public Long saveAuthor(Author author) {
         log.info("----In AuthorServiceImpl.saveAuthor----");
         Author savedAuthor;
-        try{
+        try {
             savedAuthor = authorRepository.save(author);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             log.info("----Exception in AuthorServiceImpl.saveAuthor----");
             log.error(Arrays.toString(ex.getStackTrace()));
             return null;
@@ -58,9 +58,9 @@ public class AuthorServiceImpl implements AuthorService{
         log.info("----In AuthorServiceImpl.updateAuthor----");
         Author authordb = getAuthorById(author.getId());
         Author updatedAuthor;
-        try{
+        try {
             updatedAuthor = authorRepository.save(author);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             log.info("----Exception in AuthorServiceImpl.updateAuthor----");
             log.error(Arrays.toString(ex.getStackTrace()));
             return null;
@@ -73,9 +73,9 @@ public class AuthorServiceImpl implements AuthorService{
     public Long deleteAuthor(Long id) {
         log.info("----In AuthorServiceImpl.deleteAuthor----");
         Author authordb = getAuthorById(id);
-        try{
+        try {
             authorRepository.delete(authordb);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             log.info("----Exception in AuthorServiceImpl.deleteAuthor----");
             log.error(Arrays.toString(ex.getStackTrace()));
             return null;

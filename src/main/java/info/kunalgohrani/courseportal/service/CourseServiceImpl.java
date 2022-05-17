@@ -33,7 +33,7 @@ public class CourseServiceImpl implements CourseService {
     public Course getCourseById(Long id) {
         log.info("----In CourseServiceImpl.getCourseById----");
         Course course = courseRepository.findById(id).orElse(null);
-        if(course==null){
+        if (course == null) {
             throw new CourseNotPresentException("Course doesn't exists!");
         }
         log.info("----Out of CourseServiceImpl.getCourseById----");
@@ -60,10 +60,10 @@ public class CourseServiceImpl implements CourseService {
         /* Checking if course is already present in DB, if so then throws
         CourseAlreadyExistsException
          */
-        if(coursedb.isPresent()){
+        if (coursedb.isPresent()) {
             log.info(String.valueOf(coursedb.get()));
             throw new CourseAlreadyExistsException(String.format("Course %s " +
-                    "of Author %s %s already exists",
+                            "of Author %s %s already exists",
                     coursedb.get().getName(),
                     coursedb.get().getAuthor().getFirstName(),
                     coursedb.get().getAuthor().getLastName()));
@@ -72,10 +72,10 @@ public class CourseServiceImpl implements CourseService {
         // If course not present in DB then adding course
 
         Course savedCourse;
-        try{
+        try {
             savedCourse = courseRepository.save(course);
-        }catch(Exception ex){
-            log.error("Error in saving course:\n"+ex);
+        } catch (Exception ex) {
+            log.error("Error in saving course:\n" + ex);
             return null;
         }
         log.info("----Out of CourseServiceImpl.saveCourse----");
@@ -84,15 +84,15 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Long updateCourse(Course course){
+    public Long updateCourse(Course course) {
         log.info("----In CourseServiceImpl.updateCourse----");
         Course courseDb = getCourseById(course.getId());
         Course updatedCourse;
-        try{
+        try {
             updatedCourse = courseRepository.save(course);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             log.error("Exception while updating course in CourseServiceImpl" +
-                    ".updateCourse:\n"+ex);
+                    ".updateCourse:\n" + ex);
             return null;
         }
         return updatedCourse.getId();
@@ -102,11 +102,11 @@ public class CourseServiceImpl implements CourseService {
     public Long deleteCourse(Long id) {
         log.info("----In CourseServiceImpl.deleteCourse----");
         Course course = getCourseById(id);
-        try{
+        try {
             courseRepository.delete(course);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             log.error("Exception while deleting course in CourseServiceImpl" +
-                    ".deleteCourse:\n"+ex);
+                    ".deleteCourse:\n" + ex);
             return null;
         }
         log.info("----Out of CourseServiceImpl.deleteCourse----");

@@ -22,7 +22,7 @@ public class CourseController {
     @PostMapping("/course/new")
     public ResponseEntity<Object> addCourseAPI(@RequestBody Course course) {
         Long savedCourseId = courseService.saveCourse(course);
-        Map<String,String> response = new HashMap<String,String>();
+        Map<String, String> response = new HashMap<String, String>();
         if (!(savedCourseId == null)) {
             response.put("id", String.valueOf(savedCourseId));
             return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -46,10 +46,10 @@ public class CourseController {
     @PutMapping("/course/update")
     public ResponseEntity<Object> updateCourseAPI(@RequestBody Course course) {
         Long updatedCourseId = courseService.updateCourse(course);
-        Map<String,String> response = new HashMap<String,String>();
+        Map<String, String> response = new HashMap<String, String>();
         if (!(updatedCourseId == null)) {
             response.put("message", "Updated");
-            response.put("id", String.valueOf(updatedCourseId.toString()));
+            response.put("id", updatedCourseId.toString());
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             response.put("message", "Error");
@@ -61,11 +61,11 @@ public class CourseController {
 
     @DeleteMapping("/course/delete/{id}")
     public ResponseEntity<Object> deleteCourseAPI(@PathVariable String id) {
-        Map<String,String> response = new HashMap<String,String>();
+        Map<String, String> response = new HashMap<String, String>();
         Long returnedId = courseService.deleteCourse(Long.parseLong(id));
         if (!(returnedId == null)) {
             response.put("message", "deleted");
-            response.put("id",String.valueOf(returnedId));
+            response.put("id", String.valueOf(returnedId));
         } else {
             response.put("message", "Failed to delete course");
         }

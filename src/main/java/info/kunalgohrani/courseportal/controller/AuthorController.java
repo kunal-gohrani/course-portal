@@ -21,54 +21,54 @@ public class AuthorController {
     }
 
     @GetMapping("/{id}")
-    public Author getAuthorByIdAPI(@PathVariable String id){
+    public Author getAuthorByIdAPI(@PathVariable String id) {
         return authorService.getAuthorById(Long.valueOf(id));
     }
 
     @GetMapping("/all")
-    public List<Author> getAllAuthorAPI(){
+    public List<Author> getAllAuthorAPI() {
         return authorService.getAllAuthors();
     }
 
 
     @PostMapping("/new")
-    public ResponseEntity<Object> addAuthorAPI(@RequestBody Author author){
-        Map<String,String> response = new HashMap<String,String>();
+    public ResponseEntity<Object> addAuthorAPI(@RequestBody Author author) {
+        Map<String, String> response = new HashMap<String, String>();
         Long savedAuthorId = authorService.saveAuthor(author);
-        if(!(savedAuthorId==null)){
-            response.put("id",String.valueOf(savedAuthorId));
+        if (!(savedAuthorId == null)) {
+            response.put("id", String.valueOf(savedAuthorId));
             return new ResponseEntity<>(response, HttpStatus.CREATED);
-        }else{
-            response.put("id",null);
+        } else {
+            response.put("id", null);
             return new ResponseEntity<>(response,
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Object> updateAuthorAPI(@RequestBody Author author){
-        Map<String,String> response = new HashMap<String,String>();
+    public ResponseEntity<Object> updateAuthorAPI(@RequestBody Author author) {
+        Map<String, String> response = new HashMap<String, String>();
         Long savedAuthorId = authorService.updateAuthor(author);
-        if(!(savedAuthorId==null)){
-            response.put("id",String.valueOf(savedAuthorId));
+        if (!(savedAuthorId == null)) {
+            response.put("id", String.valueOf(savedAuthorId));
             return new ResponseEntity<>(response, HttpStatus.CREATED);
-        }else{
-            response.put("id",null);
+        } else {
+            response.put("id", null);
             return new ResponseEntity<>(response,
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> deleteAuthorAPI(@PathVariable String id){
-        Map<String,String> response = new HashMap<String,String>();
+    public ResponseEntity<Object> deleteAuthorAPI(@PathVariable String id) {
+        Map<String, String> response = new HashMap<String, String>();
         Long deletedAuthorId = authorService.deleteAuthor(Long.parseLong(id));
-        if(!(deletedAuthorId==null)){
-            response.put("id",String.valueOf(deletedAuthorId));
-            return new ResponseEntity<>(response,HttpStatus.OK);
-        }else{
+        if (!(deletedAuthorId == null)) {
+            response.put("id", String.valueOf(deletedAuthorId));
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
 
-            response.put("id",null);
+            response.put("id", null);
             return new ResponseEntity<>(response,
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }

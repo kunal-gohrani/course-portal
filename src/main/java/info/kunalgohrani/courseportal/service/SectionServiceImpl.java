@@ -3,12 +3,12 @@ package info.kunalgohrani.courseportal.service;
 import info.kunalgohrani.courseportal.exception.CourseNotPresentException;
 import info.kunalgohrani.courseportal.model.Course;
 import info.kunalgohrani.courseportal.model.Section;
-import info.kunalgohrani.courseportal.repository.CourseRepository;
 import info.kunalgohrani.courseportal.repository.SectionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -19,8 +19,8 @@ public class SectionServiceImpl implements SectionService {
     private final SectionRepository sectionRepository;
 
     public SectionServiceImpl(
-                              CourseService courseService,
-                              SectionRepository sectionRepository) {
+            CourseService courseService,
+            SectionRepository sectionRepository) {
         this.courseService = courseService;
         this.sectionRepository = sectionRepository;
     }
@@ -81,18 +81,22 @@ public class SectionServiceImpl implements SectionService {
         log.info("----In SectionServiceImpl.deleteSectionFromCourse----");
         Course course =
                 courseService.getCourseById(section.getCourse().getId());
+        Optional<Section> sectionFound =
+                sectionRepository.findByCourseAndId(course, section.getId());
         try {
-            course.deleteSection(section);
-            courseService.updateCourse(course);
-            Long sectionId = section.getId();
-            log.info("----Out of SectionServiceImpl" +
-                    ".deleteSectionFromCourse----");
-            return sectionId;
+            if (sectionFound.isPresent()) {
+                sectionRepository.delete(sectionFound.get());
+                Long sectionId = sectionFound.get().getId();
+                log.info("----Out of SectionServiceImpl" +
+                        ".deleteSectionFromCourse----");
+                return sectionId;
+            }
         } catch (Exception ex) {
             log.error(String.format("Error while deleting section with ID=%d " +
                     "from course ID=%d", section.getId(), course.getId()));
             return null;
         }
+        return null;
     }
 
     @Override

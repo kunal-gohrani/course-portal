@@ -1,12 +1,7 @@
 package info.kunalgohrani.courseportal.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -17,6 +12,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = {"sections"})
 @ToString(exclude = {"sections"})
 public class Course {
 
@@ -27,8 +23,8 @@ public class Course {
     @Lob
     private String name;
 
-    @ManyToOne(optional=false)
-    @JoinColumn(name="author_id",referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
     @JsonIgnoreProperties("courses")
     private Author author;
 
@@ -39,19 +35,13 @@ public class Course {
     @Lob
     private String description;
 
-    @OneToMany(mappedBy = "course",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("course")
     private List<Section> sections = new ArrayList<>();
 
-    public Course addSection(Section section){
+    public Course addSection(Section section) {
         section.setCourse(this);
         this.getSections().add(section);
-        return this;
-    }
-
-    public Course deleteSection(Section section)throws Exception{
-        section.setCourse(null);
-        this.getSections().remove(section);
         return this;
     }
 

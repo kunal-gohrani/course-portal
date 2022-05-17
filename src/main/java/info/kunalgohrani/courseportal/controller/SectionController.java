@@ -29,35 +29,37 @@ public class SectionController {
 
     @GetMapping("/getbyname/{courseId}/{name}")
     public List<Section> getSectionByNameAndCourseId(@PathVariable String courseId, @PathVariable String name) {
-       List<Section> sections =
-               sectionService.getSectionByName(Long.parseLong(courseId),name);
-       return sections;
+        List<Section> sections =
+                sectionService.getSectionByName(Long.parseLong(courseId), name);
+        return sections;
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Object> saveOrUpdateSectionAPI(@RequestBody Section section){
-        Map<String,String> response = new HashMap<String,String>();
+    public ResponseEntity<Object> saveOrUpdateSectionAPI(@RequestBody Section section) {
+        Map<String, String> response = new HashMap<String, String>();
         Long id = sectionService.saveOrUpdateSectionInCourse(section);
-        if(id!=null){
-            response.put("success",String.valueOf(id));
-            return new ResponseEntity<>(response,HttpStatus.OK);
-        }else{
-            response.put("success","-1");
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        if (id != null) {
+            response.put("success", String.valueOf(id));
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            response.put("success", "-1");
+            return new ResponseEntity<>(response,
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Object> deleteSectionAPI(@RequestBody Section section){
+    public ResponseEntity<Object> deleteSectionAPI(@RequestBody Section section) {
 
-        Map<String,String> response = new HashMap<String,String>();
+        Map<String, String> response = new HashMap<String, String>();
         Long id = sectionService.deleteSectionFromCourse(section);
-        if(id!=null){
-            response.put("success",String.valueOf(id));
-            return new ResponseEntity<>(response,HttpStatus.OK);
-        }else{
-            response.put("success","-1");
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        if (id != null) {
+            response.put("success", String.valueOf(id));
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            response.put("success", "-1");
+            return new ResponseEntity<>(response,
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

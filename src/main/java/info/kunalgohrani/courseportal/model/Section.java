@@ -1,10 +1,7 @@
 package info.kunalgohrani.courseportal.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,6 +10,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @ToString(exclude = {"course"})
 public class Section {
     @Id
@@ -20,7 +18,7 @@ public class Section {
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name="course_id",referencedColumnName = "id")
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
     @JsonIgnoreProperties("sections")
     private Course course;
 

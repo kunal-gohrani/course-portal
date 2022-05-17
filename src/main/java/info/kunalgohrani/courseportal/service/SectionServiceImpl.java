@@ -1,11 +1,14 @@
 package info.kunalgohrani.courseportal.service;
 
 import info.kunalgohrani.courseportal.exception.CourseNotPresentException;
+import info.kunalgohrani.courseportal.exception.DatesException;
 import info.kunalgohrani.courseportal.model.Course;
 import info.kunalgohrani.courseportal.model.Section;
 import info.kunalgohrani.courseportal.repository.SectionRepository;
+import info.kunalgohrani.courseportal.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,30 +47,43 @@ public class SectionServiceImpl implements SectionService {
     }
 
     @Override
+    @Transactional
     public Long saveOrUpdateSectionInCourse(Section section) {
         log.info("----In SectionServiceImpl.saveOrUpdateSectionInCourse----");
         Course course =
                 courseService.getCourseById(section.getCourse().getId());
-        if (!(course == null)) {
+        if (course != null) {
             // Course Exists
-            try {
-                if (section.getId() != null && section.getCourse().getId() != null) {
-                    // Section already present, update it
-                    sectionRepository.save(section);
+            if (DateUtil.checkDates(course, section)) {
+                // Only if section dates are within course dates, then try to
+                // insert/update
+                try {
 
-                } else {
-                    // New Section
-                    course.addSection(section);
+                    if (section.getId() != null && section.getCourse().getId() != null) {
+                        // Section already present, update it
+                        sectionRepository.save(section);
+
+                    } else {
+                        // New Section
+                        course.addSection(section);
+                    }
+
+                    courseService.updateCourse(course);
+                    log.info("----Out of SectionServiceImpl" +
+                            ".saveOrUpdateSectionInCourse----");
+                    return 0L;
+
+                } catch (Exception ex) {
+                    log.error("Error in saving or updating section for " +
+                            "section " +
+                            "id=" + section.getId());
+                    return null;
                 }
-                courseService.updateCourse(course);
-                log.info("----Out of SectionServiceImpl" +
-                        ".saveOrUpdateSectionInCourse----");
-                return 0L;
 
-            } catch (Exception ex) {
-                log.error("Error in saving or updating section for section " +
-                        "id=" + section.getId());
-                return null;
+            } else {
+                // If dates check fails
+                throw new DatesException("Section Dates should be " +
+                        "within the Course Dates");
             }
 
         } else {
@@ -77,6 +93,7 @@ public class SectionServiceImpl implements SectionService {
     }
 
     @Override
+    @Transactional
     public Long deleteSectionFromCourse(Section section) {
         log.info("----In SectionServiceImpl.deleteSectionFromCourse----");
         Course course =
@@ -106,4 +123,6 @@ public class SectionServiceImpl implements SectionService {
                 , name);
         return sections;
     }
+
+
 }

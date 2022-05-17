@@ -1,6 +1,7 @@
 package info.kunalgohrani.courseportal.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,8 +29,12 @@ public class Course {
     @JsonIgnoreProperties("courses")
     private Author author;
 
+    @NotNull
+    @Column(nullable = false)
     private LocalDate startDate;
 
+    @NotNull
+    @Column(nullable = false)
     private LocalDate endDate;
 
     @Lob

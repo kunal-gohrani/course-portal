@@ -2,8 +2,11 @@ package info.kunalgohrani.courseportal.service;
 
 import info.kunalgohrani.courseportal.exception.CourseAlreadyExistsException;
 import info.kunalgohrani.courseportal.exception.CourseNotPresentException;
+import info.kunalgohrani.courseportal.exception.DatesException;
 import info.kunalgohrani.courseportal.model.Course;
+import info.kunalgohrani.courseportal.model.Section;
 import info.kunalgohrani.courseportal.repository.CourseRepository;
+import info.kunalgohrani.courseportal.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +56,10 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public Long saveCourse(Course course) {
         log.info("----In CourseServiceImpl.saveCourse----");
+
+        boolean containsSections = false;
+        List<Section> sections = null;
+
         Optional<Course> coursedb =
                 courseRepository.findByNameAndAuthor(course.getName(),
                         course.getAuthor());
@@ -71,19 +78,25 @@ public class CourseServiceImpl implements CourseService {
 
         // If course not present in DB then adding course
 
-        Course savedCourse;
-        try {
-            savedCourse = courseRepository.save(course);
-        } catch (Exception ex) {
-            log.error("Error in saving course:\n" + ex);
-            return null;
+        if (DateUtil.checkDates(course)) {
+            Course savedCourse;
+            try {
+                savedCourse = courseRepository.save(course);
+                log.info("Course saved with ID=" + savedCourse.getId());
+            } catch (Exception ex) {
+                log.error("Error in saving course:\n" + ex);
+                return null;
+            }
+            log.info("----Out of CourseServiceImpl.saveCourse----");
+            return savedCourse.getId();
+        } else {
+            throw new DatesException("Please check course start and end dates");
         }
-        log.info("----Out of CourseServiceImpl.saveCourse----");
 
-        return savedCourse.getId();
     }
 
     @Override
+    @Transactional
     public Long updateCourse(Course course) {
         log.info("----In CourseServiceImpl.updateCourse----");
         Course courseDb = getCourseById(course.getId());
@@ -99,6 +112,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional
     public Long deleteCourse(Long id) {
         log.info("----In CourseServiceImpl.deleteCourse----");
         Course course = getCourseById(id);
@@ -113,4 +127,6 @@ public class CourseServiceImpl implements CourseService {
         return id;
 
     }
+
+
 }

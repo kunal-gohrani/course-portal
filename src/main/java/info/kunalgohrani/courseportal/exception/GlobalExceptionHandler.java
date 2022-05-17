@@ -38,4 +38,13 @@ public class GlobalExceptionHandler {
         errorResponse.put("message", ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(value = DatesException.class)
+    public ResponseEntity<Object> datesExceptionHandler(DatesException ex) {
+        log.error("Date in either course or section did not match criteria" +
+                ".\nException:\n" + ex);
+        Map<String, String> errorResponse = new HashMap<String, String>();
+        errorResponse.put("message", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
 }

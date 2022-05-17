@@ -25,8 +25,10 @@ public class Section {
     @Lob
     private String name;
 
+    @Column(nullable = false)
     private LocalDate startDate;
 
+    @Column(nullable = false)
     private LocalDate endDate;
 
     @Lob

@@ -13,4 +13,5 @@ public interface SectionService {
     Long deleteSectionFromCourse(Section section);
 
     List<Section> getSectionByName(Long courseId, String name);
+
 }

@@ -1,0 +1,357 @@
+{
+	"info": {
+		"_postman_id": "1ffeea6c-04d6-476b-842e-4f1e6b4ecd58",
+		"name": "Course Portal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Author",
+			"item": [
+				{
+					"name": "GET AUTHOR BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/author/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"author",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST NEW AUTHOR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\":\"Geeta\",\r\n    \"lastName\":\"Gohrani\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/author/new",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"author",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL AUTHORS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/author/all",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"author",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Author",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n        \"firstName\": \"Kunal\",\r\n        \"lastName\": \"gtttttttttt\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/author/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"author",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Authors",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/author/delete/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"author",
+								"delete",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "GET ALL COURSES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/course/all",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"course",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST NEW COURSE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test course postman\",\r\n    \"author\": {\r\n        \"id\": 2\r\n    },\r\n    \"startDate\": \"2022-01-01\",\r\n    \"endDate\": \"2022-05-31\",\r\n    \"description\": \"Testing Post\",\r\n    \"sections\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/course/new",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"course",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET COURSE BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/course/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"course",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Course By Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"id\":7,\r\n        \"name\": \"Updated udemy\",\r\n        \"author\": {\r\n            \"id\": 2\r\n        },\r\n        \"startDate\": \"2022-01-01\",\r\n        \"endDate\": \"2022-05-15\",\r\n        \"description\": \"Testing Post udemy\",\r\n        \"sections\": []\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/course/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"course",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Course by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/course/delete/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"course",
+								"delete",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Section",
+			"item": [
+				{
+					"name": "Find all sections of course",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/section/all/7",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"section",
+								"all",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get section by name and course id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/section/getbyname/6/Introduction%20to%20js",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"section",
+								"getbyname",
+								"6",
+								"Introduction%20to%20js"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new Section",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"course\": {\r\n            \"id\": 7\r\n        },\r\n        \"name\": \"Section 2 Postman\",\r\n        \"startDate\": \"2022-03-01\",\r\n        \"endDate\": \"2022-05-15\",\r\n        \"description\": \"Postman course\"\r\n    },",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/section/save",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"section",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Section",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 5,\r\n        \"course\": {\r\n            \"id\": 7\r\n        },\r\n        \"name\": \"Section 2 Postman\",\r\n        \"startDate\": \"2022-05-01\",\r\n        \"endDate\": \"2022-05-15\",\r\n        \"description\": \"Postman course updated\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/section/save",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"section",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete section",
+					"request": {
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

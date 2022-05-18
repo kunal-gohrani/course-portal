@@ -4,7 +4,6 @@ import info.kunalgohrani.courseportal.exception.CourseAlreadyExistsException;
 import info.kunalgohrani.courseportal.exception.CourseNotPresentException;
 import info.kunalgohrani.courseportal.exception.DatesException;
 import info.kunalgohrani.courseportal.model.Course;
-import info.kunalgohrani.courseportal.model.Section;
 import info.kunalgohrani.courseportal.repository.CourseRepository;
 import info.kunalgohrani.courseportal.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -98,19 +97,21 @@ public class CourseServiceImpl implements CourseService {
     public Long updateCourse(Course course) {
         log.info("----In CourseServiceImpl.updateCourse----");
         Course courseDb = getCourseById(course.getId());
-        Course updatedCourse=null;
-        try {
-            if(DateUtil.checkDates(course)){
+        if (DateUtil.checkDates(course)) {
+            Course updatedCourse = null;
+            try {
                 updatedCourse = courseRepository.save(course);
-            }else{
-                throw new DatesException("Please check course start and end dates");
+            } catch (Exception ex) {
+                log.error("Exception while updating course in " +
+                        "CourseServiceImpl" +
+                        ".updateCourse:\n" + ex);
+                return null;
             }
-        } catch (Exception ex) {
-            log.error("Exception while updating course in CourseServiceImpl" +
-                    ".updateCourse:\n" + ex);
-            return null;
+            return updatedCourse.getId();
+        } else {
+            throw new DatesException("Please check course start and end dates");
         }
-        return updatedCourse.getId();
+
     }
 
     @Override

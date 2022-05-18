@@ -98,9 +98,13 @@ public class CourseServiceImpl implements CourseService {
     public Long updateCourse(Course course) {
         log.info("----In CourseServiceImpl.updateCourse----");
         Course courseDb = getCourseById(course.getId());
-        Course updatedCourse;
+        Course updatedCourse=null;
         try {
-            updatedCourse = courseRepository.save(course);
+            if(DateUtil.checkDates(course)){
+                updatedCourse = courseRepository.save(course);
+            }else{
+                throw new DatesException("Please check course start and end dates");
+            }
         } catch (Exception ex) {
             log.error("Exception while updating course in CourseServiceImpl" +
                     ".updateCourse:\n" + ex);
